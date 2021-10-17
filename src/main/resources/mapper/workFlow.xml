@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.alibaba.workFlow.dao.WorkFlowDao">
+    <resultMap id="BaseResultMap" type="com.alibaba.workFlow.entity.WorkFlow" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+        <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
+        <result column="display_order" property="displayOrder" jdbcType="VARCHAR" />
+        <result column="create_single_page" property="createSinglePage" jdbcType="VARCHAR" />
+        <!--<collection column="id" property="children" select="getChildren"/>-->
+    </resultMap>
+
+    <select id="findById" parameterType="long" resultType="com.alibaba.workFlow.entity.WorkFlow">
+        select * from t_goods where goods_id = #{value}
+    </select>
+
+
+    <select id="findAll"  parameterType="long"  resultMap="BaseResultMap">
+        SELECT * FROM t_work_flow WHERE parent_id = ${value}
+    </select>
+
+ <!--   <select id="getChildren" resultMap="BaseResultMap">
+        select *
+        from t_work_flow
+        where parent_id = #{id}
+    </select>-->
+
+
+    <select id="queryWorkFlowList"  parameterType="com.alibaba.workFlow.entity.WorkFlow"  resultMap="BaseResultMap">
+        SELECT * FROM t_work_flow
+    </select>
+
+</mapper>
